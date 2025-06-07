@@ -1,0 +1,44 @@
+Cosmic Insights API: Historical Observations Endpoint
+The /observations endpoint allows you to retrieve historical astronomical observations based on various criteria. This includes data points for supernovae, meteor showers, solar eclipses, and more.
+
+Endpoint Structure:
+GET /observations
+
+Query Parameters:
+
+event_type (string, optional): Filters observations by event type (e.g., "supernova", "meteor_shower", "eclipse").
+start_date (date, optional): Returns observations from this date onwards (format: YYYY-MM-DD).
+end_date (date, optional): Returns observations up to this date (format: YYYY-MM-DD).
+constellation (string, optional): Filters observations by the constellation they occurred in.
+min_magnitude (float, optional): Filters celestial objects by their minimum apparent magnitude (lower is brighter).
+limit (integer, optional): Maximum number of results to return. Default is 100, max is 500.
+Response Schema (Example for a Supernova):
+
+JSON
+{
+  "observations": [
+    {
+      "id": "obs-sn-2023-01",
+      "event_type": "supernova",
+      "timestamp": "2023-01-15T22:30:00Z",
+      "celestial_body_id": "sn1604",
+      "constellation": "Ophiuchus",
+      "apparent_magnitude": -2.5,
+      "notes": "Kepler's Supernova, visible to the naked eye."
+    },
+    {
+      "id": "obs-ms-lyr-2024",
+      "event_type": "meteor_shower",
+      "timestamp": "2024-04-22T03:00:00Z",
+      "constellation": "Lyra",
+      "zenith_hourly_rate": 18,
+      "notes": "Peak of the Lyrid meteor shower."
+    }
+  ],
+  "total_results": 2
+}
+Example Usage:
+
+Get all meteor showers in 2024: /observations?event_type=meteor_shower&start_date=2024-01-01&end_date=2024-12-31
+Find bright observations (magnitude -1.0 or lower): /observations?min_magnitude=-1.0
+Recent supernova observations: /observations?event_type=supernova&limit=1

@@ -1,0 +1,19 @@
+# Cosmic Insights API Overview
+
+The Cosmic Insights API provides a comprehensive suite of endpoints for accessing and analyzing astronomical data. From celestial body properties to historical observations and predictive models, our API empowers developers and researchers to integrate rich cosmic information into their applications.
+
+**Key Features:**
+* **Real-time Celestial Data:** Access current positions, magnitudes, and visibility for stars, planets, and constellations.
+* **Historical Observations:** Query a vast archive of astronomical events, including supernovae, meteor showers, and planetary transits.
+* **Astrophysical Constants:** Retrieve fundamental constants and unit conversions used in astrophysics.
+* **Predictive Models:** Utilize advanced models to forecast celestial phenomena and simulate orbital mechanics.
+* **Secure Authentication:** All requests require an API key, which can be generated from your developer dashboard.
+
+**Getting Started:**
+To begin using the Cosmic Insights API, register for a free developer account at `https://cosmic-insights.com/developer`. Once registered, generate your API key and include it in the `X-API-Key` header for all requests.
+
+**Data Formats:**
+All API responses are returned in JSON format. Request bodies, where applicable, should also be JSON.
+
+**Rate Limits:**
+Free tier accounts are limited to 100 requests per minute. Enterprise accounts have custom rate limits. Refer to the `Rate Limiting` section for more details.

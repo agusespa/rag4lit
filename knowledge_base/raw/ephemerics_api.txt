@@ -1,0 +1,43 @@
+Cosmic Insights API: Ephemeris Endpoint
+The /ephemeris endpoint provides precise astronomical ephemeris data, including celestial body positions, velocities, and light travel times for a given observation point and time. This is critical for high-precision calculations.
+
+Endpoint Structure:
+GET /ephemeris/{body_id}
+
+Path Parameters:
+
+body_id (string, required): The unique identifier of the celestial body (e.g., "earth", "venus", "ISS" for International Space Station).
+Query Parameters:
+
+observer_latitude (float, required): Latitude of the observer in degrees.
+observer_longitude (float, required): Longitude of the observer in degrees.
+observer_altitude_m (float, optional): Altitude of the observer in meters. Defaults to 0.
+timestamp_utc (string, required): The UTC timestamp for the ephemeris calculation (format: YYYY-MM-DDTHH:MM:SSZ).
+frame (string, optional): Coordinate frame of the output. Options: "J2000" (default), "EME2000", "ICRF".
+Response Schema:
+
+JSON
+{
+  "body_id": "venus",
+  "timestamp_utc": "2025-06-07T14:00:00Z",
+  "observer_location": {
+    "latitude": 59.3293,
+    "longitude": 18.0686,
+    "altitude_m": 0
+  },
+  "position_au": {
+    "x": 0.723,
+    "y": 0.051,
+    "z": -0.003
+  },
+  "velocity_au_per_day": {
+    "vx": -0.000001,
+    "vy": 0.000002,
+    "vz": 0.0000001
+  },
+  "light_time_seconds": 240.5
+}
+Example Usage:
+
+Get Venus's position from Stockholm (59.3293 N, 18.0686 E) at 2 PM UTC on June 7, 2025: /ephemeris/venus?observer_latitude=59.3293&observer_longitude=18.0686&timestamp_utc=2025-06-07T14:00:00Z
+Ephemeris for ISS from sea level: /ephemeris/ISS?observer_latitude=34.05&observer_longitude=-118.25&timestamp_utc=2025-06-07T10:00:00Z

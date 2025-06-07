@@ -1,0 +1,47 @@
+# Cosmic Insights API: Celestial Bodies Endpoint
+
+The `/celestial_bodies` endpoint allows you to retrieve detailed information about stars, planets, moons, asteroids, and other celestial objects.
+
+**Endpoint Structure:**
+`GET /celestial_bodies/{body_id}`
+`GET /celestial_bodies?type={body_type}&name={body_name}`
+
+**Path Parameters:**
+* `body_id` (string, required): The unique identifier for a celestial body (e.g., "sol", "mars", "moon").
+
+**Query Parameters:**
+* `type` (string, optional): Filters by celestial body type (e.g., "star", "planet", "moon", "asteroid").
+* `name` (string, optional): Searches by the common name of the celestial body (case-insensitive).
+* `include_orbital_data` (boolean, optional): Set to `true` to include detailed orbital parameters. Defaults to `false`.
+
+**Response Schema (Example for 'Mars'):**
+```json
+{
+  "id": "mars",
+  "name": "Mars",
+  "type": "planet",
+  "mass_kg": 6.39e23,
+  "radius_km": 3389.5,
+  "surface_gravity_ms2": 3.72,
+  "composition": ["rock", "iron"],
+  "atmosphere": {
+    "main_gases": ["carbon dioxide", "nitrogen", "argon"],
+    "pressure_pa": 600
+  },
+  "satellites": [
+    {"id": "phobos", "name": "Phobos"},
+    {"id": "deimos", "name": "Deimos"}
+  ],
+  "orbital_data": {
+    "aphelion_km": 2.492e8,
+    "perihelion_km": 2.067e8,
+    "orbital_period_days": 687.0
+  }
+}
+
+Example Usage:
+
+Get details for Earth: /celestial_bodies/earth
+Find all planets: /celestial_bodies?type=planet
+Get orbital data for Jupiter: /celestial_bodies/jupiter?include_orbital_data=true
+

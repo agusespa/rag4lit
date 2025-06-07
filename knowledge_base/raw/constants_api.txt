@@ -1,0 +1,44 @@
+Cosmic Insights API: Astrophysical Constants Endpoint
+The /constants endpoint provides access to fundamental astrophysical constants and common unit conversions, useful for scientific calculations.
+
+Endpoint Structure:
+GET /constants
+GET /constants/{constant_name}
+
+Path Parameters:
+
+constant_name (string, optional): The specific constant to retrieve (e.g., "gravitational_constant", "speed_of_light", "astronomical_unit"). If omitted, all constants are returned.
+Response Schema (Example for a single constant):
+
+JSON
+{
+  "constant": "gravitational_constant",
+  "value": 6.6743e-11,
+  "unit": "m^3 kg^-1 s^-2",
+  "description": "Newtonian constant of gravitation."
+}
+Response Schema (Example for all constants):
+
+JSON
+{
+  "constants": [
+    {
+      "constant": "speed_of_light",
+      "value": 299792458.0,
+      "unit": "m/s",
+      "description": "Speed of light in vacuum."
+    },
+    {
+      "constant": "astronomical_unit",
+      "value": 149597870700.0,
+      "unit": "m",
+      "description": "Astronomical unit (AU)."
+    }
+    // ... more constants
+  ]
+}
+Example Usage:
+
+Get the value of the speed of light: /constants/speed_of_light
+Retrieve all available astrophysical constants: /constants
+What is the value of the AU?: (Implicit query, RAG should find "astronomical_unit")
