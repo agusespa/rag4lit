@@ -24,7 +24,7 @@ class RAGSystem:
 
         all_chunks = []
         for doc in documents:
-            chunk = prep.chunk_text_by_tokens(doc, self.embedding_model.tokenizer)
+            chunk = prep.get_tokenized_chunks(doc, self.embedding_model.tokenizer)
             all_chunks.extend(chunk)
 
         print(f"Generated {len(all_chunks)} chunks from documents.")
@@ -69,8 +69,8 @@ class RAGSystem:
     def build_prompt(self, query, docs):
         context = "\n\n".join(docs)
         return f"""
-            <role>You are the Lead Developer for the project and help other developers understand the system.</role>
-            <task>Based on the following context, please answer the question. If the answer is not available in the context, state that you don't have enough information.</task>
+            <role>You are the Lead Developer for the software development project and your main purpose is to help other developers understand the system.</role>
+            <task>Answer the question based on the following context. If the answer is not available in the context, state that you don't have enough information.</task>
             <context>{context}</context>
             <question>{query}</question>
         """
@@ -80,7 +80,7 @@ class RAGSystem:
         user_question: str,
         top_k_retrievals: int = 3,
         similarity_threshold: float = 1.0,
-    ):
+    ) -> str | None:
         print(f"\nUser question: {user_question}")
         try:
             query_for_embedding = (
