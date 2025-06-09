@@ -3,7 +3,6 @@ import faiss
 from sentence_transformers import SentenceTransformer
 import prep
 import gen_llm
-from tqdm import tqdm
 
 
 class RAGSystem:
@@ -24,7 +23,7 @@ class RAGSystem:
 
         all_chunks = []
         for doc in documents:
-            chunk = prep.get_tokenized_chunks(doc, self.embedding_model.tokenizer)
+            chunk = prep.get_chunks(doc)
             all_chunks.extend(chunk)
 
         print(f"Generated {len(all_chunks)} chunks from documents.")
@@ -34,7 +33,7 @@ class RAGSystem:
 
         batch_size = 32
 
-        for i in tqdm(range(0, len(all_chunks), batch_size), desc="Embedding Chunks"):
+        for i in range(0, len(all_chunks), batch_size):
             batch_chunks = all_chunks[i : i + batch_size]
             batch_embeddings = prep.embed_chunks(batch_chunks, self.embedding_model)
             if batch_embeddings is not None:
@@ -109,10 +108,10 @@ class RAGSystem:
             print("No relevant chunks found in the knowledge base.")
             return
 
-        print("\n--- Retrieved Chunks ---")
+        print("\n-------- Retrieved Chunks --------")
         for i, (chunk, score) in enumerate(filtered_chunks):
             print(f"Chunk {i+1} (similarity: {score:.3f}):\n{chunk}\n")
-        print("------------------------\n")
+        print("----------------------------------\n")
 
         print("Generating response with LLM...")
         augmented_prompt = self.build_prompt(user_question, retrieved_chunks)
